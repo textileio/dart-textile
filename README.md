@@ -3,9 +3,8 @@
 [![Made by Textile](https://img.shields.io/badge/made%20by-Textile-informational.svg?style=popout-square)](https://textile.io)
 [![Chat on Slack](https://img.shields.io/badge/slack-slack.textile.io-informational.svg?style=popout-square)](https://slack.textile.io)
 [![GitHub license](https://img.shields.io/github/license/textileio/dart-textile.svg?style=popout-square)](./LICENSE)
-[![Dart CI](https://github.com/textileio/dart-textile/workflows/Dart%20CI/badge.svg?style=popout-square&branch=master)](https://github.com/textileio/dart-textile/actions?query=workflow%3A%22Dart+CI%22)
 [![Pub](https://img.shields.io/pub/v/textile.svg?style=popout-square)](https://pub.dartlang.org/packages/textile)
-[![Threads version](https://img.shields.io/badge/dynamic/yaml?style=popout-square&color=3527ff&label=go-threads&prefix=v&query=packages.threads_client_grpc.version&url=https%3A%2F%2Fraw.githubusercontent.com%2Ftextileio%2Fdart-textile%2Fmaster%2Fpubspec.lock)](https://github.com/textileio/go-threads)
+[![Threads version](https://img.shields.io/badge/dynamic/yaml?style=popout-square&color=3527ff&label=go-threads&prefix=v&query=packages.threads_client_grpc.version&url=https%3A%2F%2Fgithub.com%2Ftextileio%2Fdart-textile%2Fblob%2Fmaster%2Fpubspec.lock)](https://github.com/textileio/go-threads)
 [![Build status](https://img.shields.io/github/workflow/status/textileio/dart-textile/test/master.svg?style=popout-square)](https://github.com/textileio/dart-textile/actions?query=branch%3Amaster)
 
 > Textile's Dart client for interacting with remote Threads
@@ -15,48 +14,72 @@ Join us on our [public Slack channel](https://slack.textile.io/) for news, discu
 ## Table of Contents
 
 -   [Getting Started](#getting_started)
--   [Development](#development)
 -   [Contributing](#contributing)
 -   [Changelog](#changelog)
 -   [License](#license)
 
 ## Getting Started
 
-In the `pubspec.yaml` of your project, add the following dependency:
+You can use this library to access and use Textile's hosted APIs.
 
-_See latest version in badge at top of README._
+### Examples
 
+Examples require the use of the [threads-client](https://github.com/textileio/dart-threads-client/).
+
+#### Run Threads on Textile APIs
+
+```dart
+import 'package:textile/textile.dart' as textile;
+import 'package:threads_client/threads_client.dart' as threads;
+
+const APP_TOKEN = '<app token>';
+const DEVICE_ID = '<uuid>';
+
+void main(List<String> args) async {
+  final config = textile.ThreadsConfig(APP_TOKEN, DEVICE_ID);
+  final client = threads.Client(config: config);
+  final store = await client.newStore();
+  print('New store $store');
+}
 ```
-dependencies:
-  ...
-  textile: "^0.x.x"
+
+#### Run Threads in Debug mode with local Threads daemon
+
+```dart
+import 'package:textile/textile.dart' as textile;
+import 'package:threads_client/threads_client.dart' as threads;
+
+const APP_TOKEN = '<app token>';
+const DEVICE_ID = '<uuid>';
+
+/*
+ * Run your app against a local Threads daemon for easy testing and debugging.
+*/
+void main(List<String> args) async {
+  final config = textile.ThreadsConfig(APP_TOKEN, DEVICE_ID, dev: true);
+  final client = threads.Client(config: config);
+  final store = await client.newStore();
+  print('New store $store');
+}
 ```
 
-### Run Threads Daemon
+#### Run Threads on Textile APIs
 
-todo
+```dart
 
-### Usage
+import 'package:textile/textile.dart' as textile;
+import 'package:threads_client/threads_client.dart' as threads;
 
-todo
+const APP_TOKEN = '<app token>';
+const DEVICE_ID = '<uuid>';
 
-## Development
-
-### Install
-
-todo
-
-### Run tests
-
-todo
-
-### Run example
-
-todo 
-
-### Organization
-
-todo
+void main(List<String> args) async {
+  final config = textile.ThreadsConfig(APP_TOKEN, DEVICE_ID);
+  final client = threads.Client(config: config);
+  final store = await client.newStore();
+  print('New store $store');
+}
+```
 
 ## Contributing
 
