@@ -366,7 +366,7 @@ packages:
     source: path
     version: "0.1.5"
   threads_client_grpc:
-    dependency: "direct main"
+    dependency: transitive
     description:
       name: threads_client_grpc
       url: "https://pub.dartlang.org"
