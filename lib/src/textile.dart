@@ -15,7 +15,7 @@ class Textile {
       threadsPort: threadsPort
     );
   }
-  threads.Config getThreadsClient() {
+  threads.Client getThreadsClient() {
     return threads.Client(config: _threadsConfig);
   }
 }
