@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:grpc/grpc.dart';
+import 'package:threads_client/src/defaults.dart';
 import 'package:threads_client/threads_client.dart';
 import 'package:http/http.dart' as http;
 import 'package:googleapis_auth/auth_io.dart' as auth;
+import 'defaults.dart';
 
 class TextileRpcAuthenticator extends HttpBasedAuthenticator {
   final String token;
@@ -32,9 +34,9 @@ class TextileRpcAuthenticator extends HttpBasedAuthenticator {
   }
 }
 
-class RemoteConfig extends ThreadsConfig {
+class TextileThreadsConfig extends ThreadsConfig {
   TextileRpcAuthenticator _authenticator;
-  RemoteConfig(String token, String device_id, {api = '127.0.0.1', sessionPort = 8006, threadsPort = 6006}) {
+  TextileThreadsConfig(String token, String device_id, {api = default_api, sessionPort = default_session_port, threadsPort = default_threads_port}) {
     _authenticator = TextileRpcAuthenticator(token, device_id, '${api}:${sessionPort}/register');
     callOptions = _authenticator.toCallOptions;
     host = api;
