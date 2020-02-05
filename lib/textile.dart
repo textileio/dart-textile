@@ -1,4 +1,4 @@
 library textile;
 
+export 'src/api.dart';
 export 'src/threads.dart';
-export 'src/textile.dart';
