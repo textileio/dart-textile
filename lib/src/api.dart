@@ -7,10 +7,11 @@ import 'threads.dart';
 class API {
   ThreadsConfig _threadsConfig;
   threads.Client _client;
-  API(String token, String device_id, {bool dev = false, String api, int sessionPort, int threadsPort}) {
+  API(String token, String device_id, {bool dev = false, String apiScheme, String api, int sessionPort, int threadsPort}) {
     _threadsConfig = dev == false ? ThreadsConfig(
       token,
       device_id,
+      apiScheme: apiScheme ?? default_api_scheme,
       api: api ?? default_api,
       sessionPort: sessionPort ?? default_session_port,
       threadsPort: threadsPort ?? default_threads_port
@@ -18,6 +19,7 @@ class API {
       token,
       device_id,
       dev: dev,
+      apiScheme: apiScheme ?? default_dev_api_scheme,
       api: api ?? default_dev_api,
       sessionPort: sessionPort ?? default_dev_session_port,
       threadsPort: threadsPort ?? default_dev_threads_port

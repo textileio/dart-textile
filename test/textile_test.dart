@@ -6,7 +6,7 @@ void main() async {
 
   setUpAll(() {
     // Create a new threads client
-    api = textile.API('tests', 'tests', dev: true);
+    api = textile.API('<app token>', '<user id>', dev: true, api: '127.0.0.1');
   });
   tearDownAll(() async {
     // Shutdown the threads client.
@@ -14,7 +14,6 @@ void main() async {
   });
   test('Create & start a new data store', () async {
     final storeId = await api.threadsClient.newStore();
-    await api.threadsClient.start(storeId);
     expect(storeId.length, 36);
   });
 }
