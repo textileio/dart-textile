@@ -1,0 +1,36 @@
+name: test
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image:  google/dart:latest
+    services:
+      threads:
+        image: textile/go-threads
+        ports:
+        - 4006:4006
+        - 5007:5007
+        - 6006:6006
+        - 6007:6007
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: |
+            export PATH="$PATH:/usr/lib/dart/bin";
+            pub get
+    - name: Run tests
+      run: |
+           export PATH=/usr/lib/dart/bin:$PATH;
+           sleep 10; pub run test
+      env:
+        THREADS_HOST: threads
+        THREADS_PORT: ${{ job.services.threads.ports[6006] }}
