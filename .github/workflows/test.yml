@@ -39,5 +39,6 @@ jobs:
            export PATH=/usr/lib/dart/bin:$PATH;
            sleep 10; pub run test
       env:
+        TXLT_TEST_TOKEN: ${{ secrets.TXLT_TEST_TOKEN }}
         THREADS_HOST: threads
         THREADS_PORT: ${{ job.services.threads.ports[6006] }}

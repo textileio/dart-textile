@@ -2,7 +2,7 @@ name: textile
 description: Dart client for Textile (https://textile.io).
 homepage: https://github.com/textileio/dart-textile
 repository: https://github.com/textileio/dart-textile
-version: '0.1.0'
+version: '0.1.1'
 
 environment:
   sdk: '>=2.2.0 <3.0.0'
