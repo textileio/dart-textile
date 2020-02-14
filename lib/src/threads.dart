@@ -4,15 +4,25 @@ import 'defaults.dart';
 
 class ThreadsConfig extends threads.Config {
   RpcAuthenticator _authenticator;
-  ThreadsConfig(String token, String device_id, {bool dev = false, String apiScheme = default_api_scheme, api, sessionPort, threadsPort}) {
+  ThreadsConfig(
+    String token,
+    String device_id,
+    {
+      bool dev = false,
+      String scheme = default_auth_scheme,
+      String authApi,
+      int authPort,
+      String threadsHost,
+      int threadsPort,
+    }
+  ) {
     if (dev == true) {
-      host = api ?? default_dev_api;
+      host = threadsHost ?? '${default_dev_api}';;
       port = threadsPort ?? default_dev_threads_port;
     } else {
-      final registerPort = sessionPort ?? default_session_port;
-      host = api ?? default_api;
+      host = threadsHost ?? '${default_thread_api}';
       port = threadsPort ?? default_threads_port;
-      _authenticator = RpcAuthenticator(token, device_id, '${apiScheme}://${host}:${registerPort}/register');
+      _authenticator = RpcAuthenticator(token, device_id, '${scheme}://${authApi}:${authPort}/register');
       callOptions = _authenticator.toCallOptions;
     }
   }

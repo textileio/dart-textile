@@ -7,23 +7,46 @@ import 'threads.dart';
 class API {
   ThreadsConfig _threadsConfig;
   threads.Client _client;
-  API(String token, String device_id, {bool dev = false, String apiScheme, String api, int sessionPort, int threadsPort}) {
-    _threadsConfig = dev == false ? ThreadsConfig(
-      token,
-      device_id,
-      apiScheme: apiScheme ?? default_api_scheme,
-      api: api ?? default_api,
-      sessionPort: sessionPort ?? default_session_port,
-      threadsPort: threadsPort ?? default_threads_port
-    ) : ThreadsConfig(
-      token,
-      device_id,
-      dev: dev,
-      apiScheme: apiScheme ?? default_dev_api_scheme,
-      api: api ?? default_dev_api,
-      sessionPort: sessionPort ?? default_dev_session_port,
-      threadsPort: threadsPort ?? default_dev_threads_port
-    );
+  API(
+    String token,
+    String device_id,
+    {
+      bool dev = false,
+      String scheme,
+      String authApi,
+      int authPort,
+      String threadApiScheme,
+      String threadsApi,
+      int threadsPort,
+    }
+  ) {
+    if ( dev == false ) {
+      final threadScheme = threadApiScheme != null ? '${threadApiScheme}://' : '';
+      final threadApi = threadsApi ?? default_thread_api;
+      _threadsConfig = ThreadsConfig(
+        token,
+        device_id,
+        dev: false,
+        scheme: scheme ?? default_auth_scheme,
+        authApi: authApi ?? default_auth_api,
+        authPort: authPort ?? default_auth_port,
+        threadsHost: '${threadScheme}${threadApi}',
+        threadsPort: threadsPort ?? default_threads_port
+      );
+    } else {
+      final threadScheme = threadApiScheme != null ? '${threadApiScheme}://' : '';
+      final threadApi = threadsApi ?? default_dev_api;
+      _threadsConfig = ThreadsConfig(
+        token,
+        device_id,
+        dev: true,
+        scheme: scheme ?? default_dev_api_scheme,
+        authApi: authApi ?? default_dev_api,
+        authPort: authPort ?? default_dev_auths_port,
+        threadsHost: '${threadScheme}${threadApi}',
+        threadsPort: threadsPort ?? default_dev_threads_port
+      );
+    }
   }
   // threadsClient is the same client as you get from running the threads_client library
   threads.Client get threadsClient {
