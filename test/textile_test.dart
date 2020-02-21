@@ -7,8 +7,7 @@ void main() async {
   final env = Platform.environment;
   setUpAll(() {
     final token = env.containsKey('TXLT_TEST_TOKEN') && env['TXLT_TEST_TOKEN'] != '' ? env['TXLT_TEST_TOKEN'] : '';
-    final dev = token == '' ? true : false;
-    print(dev);
+    final dev = false; //token == '' ? true : false;
     api = textile.API(
       token,
       '7b2058ea-4f63-11ea-b77f-2e728ce88125',

@@ -2,13 +2,13 @@ name: textile
 description: Dart client for Textile (https://textile.io).
 homepage: https://github.com/textileio/dart-textile
 repository: https://github.com/textileio/dart-textile
-version: '0.1.1'
+version: '0.1.2'
 
 environment:
   sdk: '>=2.2.0 <3.0.0'
 
 dependencies:
-  threads_client: ^0.1.7
+  threads_client: ^0.1.9
   async: ^2.2.0
   grpc: ^2.1.3
   protobuf: ^1.0.1

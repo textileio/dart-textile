@@ -1,3 +1,4 @@
+import 'package:grpc/grpc.dart';
 import 'package:threads_client/threads_client.dart' as threads;
 import 'auth.dart';
 import 'defaults.dart';
@@ -24,6 +25,7 @@ class ThreadsConfig extends threads.Config {
       port = threadsPort ?? default_threads_port;
       _authenticator = RpcAuthenticator(token, device_id, '${scheme}://${authApi}:${authPort}/register');
       callOptions = _authenticator.toCallOptions;
+      credentials = ChannelCredentials.secure();
     }
   }
 }
